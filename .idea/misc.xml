@@ -3,11 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/activity_list_productos.xml" value="0.20878623188405798" />
+        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/activity_edit.xml" value="0.18" />
+        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/activity_list_productos.xml" value="0.18" />
         <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/activity_products.xml" value="0.22" />
+        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/activity_products.xml" value="0.25" />
+        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/activity_recycler_products.xml" value="0.209375" />
         <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
+        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/lista_item_product.xml" value="0.1" />
+        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/lista_item_producto.xml" value="0.33" />
+        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/layout/recycleractivity.xml" value="0.209375" />
+        <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/FireApp/app/src/main/res/menu/menu_productos.xml" value="0.209375" />
         <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/Fernando/AndroidStudioProjects/AndroidTest1/app/src/main/res/layout/activity_main.xml" value="0.18" />
       </map>

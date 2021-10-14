@@ -1,37 +1,54 @@
 package com.beta1.androidtest1.config;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.Nullable;
+
+import com.beta1.androidtest1.model.Producto;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBHelper extends SQLiteOpenHelper {
-    private static final String DB_NAME  = "DB2020";
-    private static final int DB_VERSION = 1;
-    public DBHelper(Context context){
-        super(context,DB_NAME, null, DB_VERSION);
+
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NOMBRE = "productos.db";
+    public static final String TABLE_PRODUCTOS = "t_productos";
+
+    public DBHelper(@Nullable Context context) {
+        super(context, DATABASE_NOMBRE, null, DATABASE_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        db.execSQL("create table id_(id_ integer primary key autoincrement, "
-                +"nombre text not null, categoria not null)");
-
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_PRODUCTOS + "(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nombre TEXT NOT NULL," +
+                "categoria TEXT NOT NULL)");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+        sqLiteDatabase.execSQL("DROP TABLE " + TABLE_PRODUCTOS);
+        onCreate(sqLiteDatabase);
 
     }
+    public List<Producto> mostrarProductos(){
+        SQLiteDatabase bd= getReadableDatabase();
+        Cursor cursor = bd.rawQuery( "SELECT * FROM productos", null);
 
-    public static class Productos {
-        public static final String TABLE = "productos";
-        public static final String ID_ = "id_";
-        public static final String NOMBRE = "nombre";
-        public static final String CATEGORIA = "categoria";
+        List<Producto> productos = new ArrayList<>();
 
-
-        public static final String[] COLUMNAS = new String[]{ID_,NOMBRE,CATEGORIA};
-
+        if(cursor.moveToFirst()){
+            do{
+                productos.add(new Producto(cursor.getString(0),cursor.getString(1)));
+            }while (cursor.moveToNext());
+        }
+        return productos;
     }
 }

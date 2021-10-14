@@ -1,6 +1,7 @@
 package com.beta1.androidtest1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +16,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class Products extends AppCompatActivity {
 
-    private EditText txt_nombre, txt_categoria;
-    private Button btn_salir_,btn_registrar_;
+    private EditText txtNombre, txtCategoria;
+    private Button btn_salir_,btn_registrar_,btn_registrosproductos;
     private Producto productos;
     private ProductosDao productosDao;
+
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -33,15 +37,47 @@ public class Products extends AppCompatActivity {
         setContentView(R.layout.activity_products);
         productosDao = new ProductosDao(this);
 
-        txt_nombre = (EditText) findViewById(R.id.txt_name);
-        txt_categoria  =(EditText) findViewById(R.id.txt_category);
+        txtNombre = (EditText) findViewById(R.id.txt_name);
+        txtCategoria  =(EditText) findViewById(R.id.txt_category);
         btn_registrar_ = (Button) findViewById(R.id.btn_registrar);
+        btn_registrosproductos = (Button) findViewById(R.id.btn_registrosproductos);
+
         btn_salir_ = (Button) findViewById(R.id.btn_salir);
 
+
+
+/*
         btn_registrar_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registrarproducto();
+            }
+        });
+
+
+*/
+
+        btn_registrar_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(!txtNombre.getText().toString().equals("") && !txtCategoria.getText().toString().equals("")) {
+
+                    //llamas a la base de datos
+                    ProductosDao dbProductos = new ProductosDao(Products.this);
+
+                    long id = dbProductos.insertarProducto(txtNombre.getText().toString(), txtCategoria.getText().toString());
+
+                    if (id > 0) {
+                        Toast.makeText(Products.this, "REGISTRO GUARDADO", Toast.LENGTH_LONG).show();
+                        limpiar();
+
+                    } else {
+                        Toast.makeText(Products.this, "ERROR AL GUARDAR REGISTRO", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(Products.this, "DEBE LLENAR LOS CAMPOS OBLIGATORIOS", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -56,57 +92,22 @@ public class Products extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-        id = getIntent().getIntExtra("PRODUCTO_ID",0);
-        if(id > 0){
-            Producto model = productosDao.buscarProductoPorID(id);
-            txt_nombre.setText(model.getNombre());
-            txt_categoria.setText(model.getCategoria());
-            setTitle("Actualizar Usuario");
-        }
-
-
-
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-    }
-
-    @Override
-    protected void onDestroy() {
-        productosDao.cerrarDB();
-        super.onDestroy();
-    }
-
-    public void registrarproducto() {
-        String nombre = txt_nombre.getText().toString();
-        String categoria = txt_categoria.getText().toString();
-
-        if(nombre == null && nombre.isEmpty() && categoria== null && categoria.isEmpty() ){
-            txt_nombre.setError("Nombre y categoria vacias");
-        }if(nombre == null && nombre.isEmpty()){
-            txt_nombre.setError("Nombre vacio, Por favor complete un campo");
-        }if(categoria== null && categoria.isEmpty()){
-            txt_categoria.setError("Categoria vacia, Por favor complete un campo");
-        }else{
-            productos = new Producto();
-            productos.setNombre(nombre);
-            productos.setCategoria(categoria);
-
-            long resultado = productosDao.modificarUsuario(productos);
-            if(resultado!= -1){
-                Toast.makeText(this,"Modificado",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(this, ListProductos.class));
-            }else{
-                Toast.makeText(this,"Guardado",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(this, ListProductos.class));
+        btn_registrosproductos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Products.this,RecyclerProducts.class));
             }
-            finish();
-        }
+        });
 
+
+
+    }
+    private void limpiar(){
+        txtNombre.setText("");
+        txtCategoria.setText("");
+    }
+
+    private void nuevoRegistro(){
 
     }
 

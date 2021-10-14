@@ -8,6 +8,11 @@ public class Producto {
     public Producto() {
     }
 
+    public Producto(String nombre, String categoria) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+    }
+
     public Producto(Integer id, String nombre, String categoria) {
         this.id = id;
         this.nombre = nombre;

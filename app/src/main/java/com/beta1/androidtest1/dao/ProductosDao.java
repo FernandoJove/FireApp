@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.Nullable;
+
 import com.beta1.androidtest1.config.DBHelper;
 import com.beta1.androidtest1.model.Producto;
 
@@ -12,12 +14,135 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProductosDao {
-    private DBHelper helper;
+public class ProductosDao extends DBHelper{
+
+    Context context;
+
+    public ProductosDao(@Nullable Context context) {
+        super(context);
+        this.context = context;
+    }
+
+    public long insertarProducto(String nombre, String categoria) {
+
+        long id = 0;
+
+        try {
+            DBHelper dbHelper = new DBHelper(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put("nombre", nombre);
+            values.put("categoria", categoria);
+
+            id = db.insert(TABLE_PRODUCTOS, null, values);
+        } catch (Exception ex) {
+            ex.toString();
+        }
+
+        return id;
+    }
+
+    public ArrayList<Producto> mostrarProductos() {
+
+        DBHelper dbHelper = new DBHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ArrayList<Producto> listaContactos = new ArrayList<>();
+        Producto producto;
+        Cursor cursorProducto;
+
+        cursorProducto = db.rawQuery("SELECT * FROM " + TABLE_PRODUCTOS, null);
+
+        if (cursorProducto.moveToFirst()) {
+            do {
+                producto = new Producto();
+                producto.setId(cursorProducto.getInt(0));
+                producto.setNombre(cursorProducto.getString(1));
+                producto.setCategoria(cursorProducto.getString(2));
+                listaContactos.add(producto);
+            } while (cursorProducto.moveToNext());
+        }
+
+        cursorProducto.close();
+
+        return listaContactos;
+    }
+
+    public Producto verProducto(int id) {
+
+        DBHelper dbHelper = new DBHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Producto producto = null;
+        Cursor cursorProducto;
+
+        cursorProducto = db.rawQuery("SELECT * FROM " + TABLE_PRODUCTOS + " WHERE id = " + id + " LIMIT 1", null);
+
+        if (cursorProducto.moveToFirst()) {
+            producto = new Producto();
+            producto.setId(cursorProducto.getInt(0));
+            producto.setNombre(cursorProducto.getString(1));
+            producto.setCategoria(cursorProducto.getString(2));
+        }
+
+        cursorProducto.close();
+
+        return producto;
+    }
+
+    public boolean editarProducto(int id, String nombre, String categoria) {
+
+        boolean correcto = false;
+
+        DBHelper dbHelper = new DBHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        try {
+            db.execSQL("UPDATE " + TABLE_PRODUCTOS + " SET nombre = '" + nombre + "', categoria = '" + categoria + "' WHERE id='" + id + "' ");
+            correcto = true;
+        } catch (Exception ex) {
+            ex.toString();
+            correcto = false;
+        } finally {
+            db.close();
+        }
+
+        return correcto;
+    }
+
+    public boolean eliminarProducto(int id) {
+
+        boolean correcto = false;
+
+        DBHelper dbHelper = new DBHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        try {
+            db.execSQL("DELETE FROM " + TABLE_PRODUCTOS + " WHERE id = '" + id + "'");
+            correcto = true;
+        } catch (Exception ex) {
+            ex.toString();
+            correcto = false;
+        } finally {
+            db.close();
+        }
+
+        return correcto;
+    }
+
+    /*private DBHelper helper;
     private SQLiteDatabase database;
+    Context context;
 
     public ProductosDao(Context context) {
+        super();
         helper = new DBHelper(context);
+    }
+
+    public dbProductos_(@Nullable Context context){
+        super (context);
+        this.context = context;
     }
 
     private SQLiteDatabase getDatabase(){
@@ -26,6 +151,8 @@ public class ProductosDao {
         }
         return database;
     }
+
+    /*
     private Producto crearProducto(Cursor cursor){
         Producto producto = new Producto(
                 cursor.getInt(cursor.getColumnIndex(DBHelper.Productos.ID_)),
@@ -87,5 +214,5 @@ public class ProductosDao {
         helper.close();
         database = null;
     }
-
+*/
 }

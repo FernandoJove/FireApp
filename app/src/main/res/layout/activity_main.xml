@@ -16,7 +16,7 @@
         android:backgroundTint="@color/crema"
         android:onClick="sendLogin"
         android:text="Sign in"
-
+        android:visibility="invisible"
         android:textColor="#000000"
         app:cornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"

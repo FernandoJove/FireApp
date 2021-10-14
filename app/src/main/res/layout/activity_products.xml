@@ -14,6 +14,15 @@
         tools:layout_editor_absoluteY="1dp"
         android:background="@color/white">
 
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/background" />
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="146dp"
@@ -54,12 +63,16 @@
 
         <EditText
             android:id="@+id/txt_name"
-            android:layout_width="176dp"
-            android:layout_height="37dp"
+            android:layout_width="266dp"
+            android:layout_height="34dp"
             android:layout_marginTop="32dp"
+            android:background="@color/white"
             android:ems="10"
+            android:hint="Inserte Nombre del Producto"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.414"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,12 +80,18 @@
 
         <EditText
             android:id="@+id/txt_category"
-            android:layout_width="176dp"
-            android:layout_height="37dp"
+            android:layout_width="265dp"
+            android:layout_height="38dp"
             android:layout_marginTop="28dp"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             android:ems="10"
+            android:hint="Inserte Categoria"
+            android:shadowRadius="@integer/material_motion_duration_medium_1"
             android:inputType="textPersonName"
-            android:text="Category"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.414"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,20 +101,37 @@
             android:id="@+id/btn_registrar"
             android:layout_width="125dp"
             android:layout_height="51dp"
-            android:text="Button"
+            android:text="Registrar"
+            android:backgroundTint="@color/crema"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_category"
-            app:layout_constraintVertical_bias="0.458" />
+            app:layout_constraintVertical_bias="0.258" />
 
         <Button
             android:id="@+id/btn_salir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:visibility="invisible"
+            android:text="Salir"
+            android:backgroundTint="@color/crema"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_registrar" />
+
+        <Button
+            android:id="@+id/btn_registrosproductos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ver Productos"
+            android:backgroundTint="@color/crema"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/btn_salir"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_registrar" />

@@ -19,7 +19,7 @@ public class  ActivityAuth extends AppCompatActivity {
     }
 
     public void sendLogin(View view){
-        Intent intent = new Intent(this,Products.class);
+        Intent intent = new Intent(this,RecyclerProducts.class);
         startActivity(intent);
     }
 
